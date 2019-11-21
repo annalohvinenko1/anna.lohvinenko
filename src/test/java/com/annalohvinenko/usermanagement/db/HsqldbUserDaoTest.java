@@ -11,13 +11,14 @@ import junit.framework.TestCase;
 
 public class HsqldbUserDaoTest extends TestCase {
 	private UserDao userDao;
+	private ConnectionFactory connectionFactory;
 	
 	@Before
-	  public void setUp() throws Exception {
+	public void setUp() throws Exception {
         super.setUp();
-        userDao = new HsqldbUserDao();
+        connectionFactory = new ConnectionFactoryImpl();
+        userDao = new HsqldbUserDao(connectionFactory);
     }
-
 
 	@Test
 	  public void testCreateUser() throws DatabaseException {
