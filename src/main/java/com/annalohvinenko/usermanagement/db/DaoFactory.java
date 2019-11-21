@@ -13,6 +13,12 @@ public class DaoFactory {
    
     private Properties properties;
 
+    private final static DaoFactory INSTANCE = new DaoFactory();
+    
+    public static DaoFactory getInstance() {
+        return INSTANCE;
+    }
+    
     private DaoFactory() {
         properties = new Properties();
         try {
