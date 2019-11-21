@@ -2,7 +2,7 @@ package com.annalohvinenko.usermanagement.db;
 
 import java.sql.*;
 import java.util.Collection;
-
+import java.util.LinkedList;
 
 import com.annalohvinenko.usermanagement.User;
 
@@ -10,7 +10,8 @@ public class HsqldbUserDao implements UserDao {
 	private ConnectionFactory connectionFactory;
 	
 	private static final String INSERT_QUERU = "INSERT into users (firstname, lastname, dateOfBirth) values (?, ?, ?)";
-		
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM users";
+   	
 	public HsqldbUserDao() {
 		// TODO Auto-generated constructor stub
 	}
@@ -57,7 +58,27 @@ public class HsqldbUserDao implements UserDao {
 	}
 
 	@Override
-	public Collection<User> findAll() throws DatabaseException {
+// Реализация метода findAll
+    
+	 public Collection<User> findAll() throws DatabaseException {
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try (Connection connection = connectionFactory.createConnection()) {
+            Collection<User> users = new LinkedList<>();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(SELECT_ALL_QUERY);
+            while (resultSet.next()) {
+                users.add(mapUser(resultSet));
+            }
+            statement.close();
+            resultSet.close();
+            return users;
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+	private User mapUser(ResultSet resultSet) {
 		// TODO Auto-generated method stub
 		return null;
 	}

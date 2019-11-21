@@ -1,5 +1,6 @@
 package com.annalohvinenko.usermanagement.db;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.dbunit.database.DatabaseConnection;
@@ -41,6 +42,13 @@ public class HsqldbUserDaoTest extends TestCase {
         assertEquals(userExpected.getDateOfBirth(), user.getDateOfBirth());
     }
 
+    public void testFindAll() throws DatabaseException {
+        int expectedUsersNumber = 2;
+        Collection<User> users = userDao.findAll();
+        assertNotNull("Collection is null", users);
+        assertEquals("Collection size.", expectedUsersNumber, users.size());
+    }
+	
 	protected IDatabaseConnection getConnection() throws Exception {
         connectionFactory = new ConnectionFactoryImpl();
         return new DatabaseConnection(connectionFactory.createConnection());
