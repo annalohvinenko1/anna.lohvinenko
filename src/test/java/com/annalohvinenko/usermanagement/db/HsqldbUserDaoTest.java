@@ -2,6 +2,10 @@ package com.annalohvinenko.usermanagement.db;
 
 import java.util.Date;
 
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.XmlDataSet;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,5 +41,17 @@ public class HsqldbUserDaoTest extends TestCase {
         assertEquals(userExpected.getDateOfBirth(), user.getDateOfBirth());
     }
 
-
+	protected IDatabaseConnection getConnection() throws Exception {
+        connectionFactory = new ConnectionFactoryImpl();
+        return new DatabaseConnection(connectionFactory.createConnection());
+    }
+	
+     protected IDataSet getDataSet() throws Exception {
+        IDataSet dataSet = new XmlDataSet(
+                getClass()
+                .getClassLoader()
+                .getResourceAsStream("usersDataSet.xml")
+        );
+        return dataSet;
+    }
 }
