@@ -12,13 +12,13 @@ public class HsqldbUserDao implements UserDao {
 	private static final String INSERT_QUERU = "INSERT into users (firstname, lastname, dateOfBirth) values (?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM users";
    	
-	public HsqldbUserDao() {
-		// TODO Auto-generated constructor stub
-	}
+    public HsqldbUserDao() {
+    }
 
-	public HsqldbUserDao(ConnectionFactory connectionFactory){
+    public HsqldbUserDao(ConnectionFactory connectionFactory){
         this.connectionFactory = connectionFactory;
     }
+
 	
 	@Override
     public User create(User user) throws DatabaseException {
@@ -77,7 +77,15 @@ public class HsqldbUserDao implements UserDao {
             throw new DatabaseException(e.getMessage());
         }
     }
+	
+	 public ConnectionFactory getConnectionFactory() {
+	        return connectionFactory;
+	    }
 
+		public void setConnectionFactory(ConnectionFactory connectionFactory) {
+	        this.connectionFactory = connectionFactory;
+		}
+	
 	private User mapUser(ResultSet resultSet) {
 		// TODO Auto-generated method stub
 		return null;

@@ -17,5 +17,7 @@ public interface UserDao {
 
     void delete (User user) throws DatabaseException;
 
+	void setConnectionFactory(ConnectionFactory connectionFactory);
+
  
 }
